@@ -10,6 +10,10 @@ struct node
 	node *p_right;
 };
 
+void print_left_subtree(node*);
+void print_current_node_value(node*);
+void print_right_subtree(node*);
+
 node* insert (node *p_tree, int key)
 {
 	// base case--we have reached an empty tree and need to insert our new node here
@@ -166,31 +170,31 @@ void swap( int& x, int& y)
 }
 
 // print this jawn in sorted and reverse sorted order
-void print_sorted(node* p_tree)
+void print_subtree_ascending(node* p_tree)
 {
 	//make recursive function for p_tree_left, p_tree_right
 	if ( p_tree != NULL )
 	{
-		//print_left(p_tree);
-		//print_current(p_tree);
-		//print_right(p_tree);	
+		print_left_subtree(p_tree);
+		print_current_node_value(p_tree);
+		print_right_subtree(p_tree);	
 	}
 	
 }
 
-void print_left(node* p_tree)
+void print_left_subtree(node* p_tree)
 {
-	//print_sorted(p_tree->p_left);
+	print_subtree_ascending(p_tree->p_left);
 }
 
-void print_current(node* p_tree)
+void print_current_node_value(node* p_tree)
 {
 	cout << p_tree->key_value << "  ";
 }
 
-void print_right(node* p_tree)
+void print_right_subtree(node* p_tree)
 {
-	
+	print_subtree_ascending(p_tree->p_right);
 }
 
 void print_reverse_sorted(node* p_tree)
@@ -246,7 +250,13 @@ int main ()
 	    	break;
 			case 5:
 			{
-				cout << "\nPrint this jawn\n\n";
+				cout << "\n";
+				if ( p_root == NULL)
+				{
+					cout << "Tree is empty";
+				}
+				print_subtree_ascending(p_root);
+				cout << "\n\n";
 			}
 			break;
 	    	case 6:
