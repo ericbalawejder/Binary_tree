@@ -171,17 +171,15 @@ void swap( int& x, int& y)
     y = temp;
 }
 
-// print this jawn in sorted and reverse sorted order
+// print tree in sorted order
 void print_subtree_ascending(node* p_tree)
 {
-	//make recursive function for p_tree_left, p_tree_right
 	if ( p_tree != NULL )
 	{
 		print_left_subtree_ascending(p_tree);
 		print_current_node_value(p_tree);
 		print_right_subtree_ascending(p_tree);	
 	}
-	
 }
 
 void print_left_subtree_ascending(node* p_tree)
@@ -199,6 +197,7 @@ void print_right_subtree_ascending(node* p_tree)
 	print_subtree_ascending(p_tree->p_right);
 }
 
+// print tree in reverse sorted order
 void print_subtree_descending(node* p_tree)
 {
 	if ( p_tree != NULL)
@@ -227,7 +226,14 @@ int main ()
 
     while (true)
     {
-		cout << "What would you like to do?\n\n1. Add a node\n2. Remove a node\n3. Destroy the tree\n4. Check if a node is in the tree\n5. Print the tree\n6. Exit the program\n";
+		cout << "What would you like to do?\n\n"
+			"1. Add a node\n"
+			"2. Remove a node\n"
+			"3. Destroy the tree\n"
+			"4. Check if a node is in the tree\n"
+			"5. Print the tree in ascending sorted order\n"
+			"6. Print the tree in descending sorted order\n"
+			"7. Exit the program\n";
 		cin >> choice;
 		switch (choice)
 		{
@@ -272,11 +278,22 @@ int main ()
 				{
 					cout << "Tree is empty";
 				}
+				print_subtree_ascending(p_root);
+				cout << "\n\n";
+			}
+			break;
+			case 6:
+			{
+				cout << "\n";
+				if ( p_root == NULL)
+				{
+					cout << "Tree is empty";
+				}
 				print_subtree_descending(p_root);
 				cout << "\n\n";
 			}
 			break;
-	    	case 6:
+	    	case 7:
 			return 0;
 	    	default:
 			cout << "Bad input...\n\n";
