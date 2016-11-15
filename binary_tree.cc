@@ -10,9 +10,11 @@ struct node
 	node *p_right;
 };
 
-void print_left_subtree(node*);
+void print_left_subtree_ascending(node*);
 void print_current_node_value(node*);
-void print_right_subtree(node*);
+void print_right_subtree_ascending(node*);
+void print_left_subtree_descending(node*);
+void print_right_subtree_descending(node*);
 
 node* insert (node *p_tree, int key)
 {
@@ -175,14 +177,14 @@ void print_subtree_ascending(node* p_tree)
 	//make recursive function for p_tree_left, p_tree_right
 	if ( p_tree != NULL )
 	{
-		print_left_subtree(p_tree);
+		print_left_subtree_ascending(p_tree);
 		print_current_node_value(p_tree);
-		print_right_subtree(p_tree);	
+		print_right_subtree_ascending(p_tree);	
 	}
 	
 }
 
-void print_left_subtree(node* p_tree)
+void print_left_subtree_ascending(node* p_tree)
 {
 	print_subtree_ascending(p_tree->p_left);
 }
@@ -192,14 +194,29 @@ void print_current_node_value(node* p_tree)
 	cout << p_tree->key_value << "  ";
 }
 
-void print_right_subtree(node* p_tree)
+void print_right_subtree_ascending(node* p_tree)
 {
 	print_subtree_ascending(p_tree->p_right);
 }
 
-void print_reverse_sorted(node* p_tree)
+void print_subtree_descending(node* p_tree)
 {
-	
+	if ( p_tree != NULL)
+	{
+		print_right_subtree_descending(p_tree);
+		print_current_node_value(p_tree);
+		print_left_subtree_descending(p_tree);
+	}
+}
+
+void print_right_subtree_descending(node* p_tree)
+{
+	print_subtree_descending(p_tree->p_right);
+}
+
+void print_left_subtree_descending(node* p_tree)
+{
+	print_subtree_descending(p_tree->p_left);
 }
 
 int main ()
@@ -255,7 +272,7 @@ int main ()
 				{
 					cout << "Tree is empty";
 				}
-				print_subtree_ascending(p_root);
+				print_subtree_descending(p_root);
 				cout << "\n\n";
 			}
 			break;
