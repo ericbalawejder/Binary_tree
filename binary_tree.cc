@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 
+// poor practice
 using namespace std;
 
 struct node
