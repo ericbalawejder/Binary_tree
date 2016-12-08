@@ -17,9 +17,9 @@ void print_right_subtree_ascending(node*);
 void print_left_subtree_descending(node*);
 void print_right_subtree_descending(node*);
 
-node* insert (node *p_tree, int key)
+node* insert(node *p_tree, int key)
 {
-	// base case--we have reached an empty tree and need to insert our new node here
+	// base case, we have reached an empty tree and need to insert our new node here
 	if ( p_tree == NULL )
 	{
 		node* p_new_tree = new node;
@@ -32,26 +32,19 @@ node* insert (node *p_tree, int key)
 	// depending on the value of the node
 	if( key < p_tree->key_value )
 	{
-		// build a new tree based on p_tree->left by adding the key. Then 
-		// replace the existing p_tree->left pointer with a pointer
-		// to the new tree. We need to set the p_tree->p_left pointer
-		// in case p_tree->left is NULL. (If it is not NULL, 
-		// p_tree->p_left won't actually change but it doesn't hurt to
-		// set it.)
 		p_tree->p_left = insert( p_tree->p_left, key );
 	}
 	else
 	{
-		// Insertion into the right is exactly symmetric to insertion
-		// into the left
+		// Insert right is exactly symmetric to insert left
 		p_tree->p_right = insert( p_tree->p_right, key );
 	}
 	return p_tree;
 }
 
-node *search (node *p_tree, int key)
+node *search(node *p_tree, int key)
 {
-	// if we reach the empty tree, clearly it's not here!
+	// if we reach the empty tree, it's not here
 	if ( p_tree == NULL )
 	{
 		return NULL;
@@ -72,7 +65,7 @@ node *search (node *p_tree, int key)
 	}
 }
 
-void destroy_tree (node *p_tree)
+void destroy_tree(node *p_tree)
 {
 	if ( p_tree != NULL )
 	{
@@ -83,21 +76,17 @@ void destroy_tree (node *p_tree)
  	}
 }
 
-node* remove_max_node (node* p_tree, node* p_max_node)
+node* remove_max_node(node* p_tree, node* p_max_node)
 {
-	// defensive coding--shouldn't actually hit this
 	if ( p_tree == NULL )
 	{
 		return NULL;
 	}
-	// we found the node, now we can replace it
+	// found the node, now replace it
 	if ( p_tree == p_max_node )
 	{
-		// the only reason we can do this is because we know 
-		// p_max_node->p_right is NULL so we aren't losing 
-		// any information. If p_max_node has no left sub-tree, 
-		// then we will just return NULL from this branch, which 
-		// will result in p_max_node being replaced with an empty tree,
+		// If p_max_node has no left sub-tree, then we will just return NULL from this
+		// branch, which will result in p_max_node being replaced with an empty tree,
 		// which is what we want.
 		return p_max_node->p_left;
 	}
@@ -107,7 +96,8 @@ node* remove_max_node (node* p_tree, node* p_max_node)
 	return p_tree;
 }
 
-node* find_max (node* p_tree)
+// keep going right until p_tree->p_right == NULL
+node* find_max(node* p_tree)
 {
 	if ( p_tree == NULL )
 	{
@@ -133,16 +123,13 @@ node* remove (node* p_tree, int key)
 		{
 			node* p_right_subtree = p_tree->p_right;
 			delete p_tree;
-			// this might return NULL if there are zero child nodes,
-			// but that is what we want anyway
+			// this might return NULL if there are zero child nodes
 			return p_right_subtree;
 		}
 		if ( p_tree->p_right == NULL )
 		{
 			node* p_left_subtree = p_tree->p_left;
 			delete p_tree;
-			// this will always return a valid node, since we know 
-			// is not NULL from the previous if statement
 			return p_left_subtree;
 		}
 		node* p_max_node = find_max( p_tree->p_left );
